@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+
+# Ambiente local e resultados de bancada
+servos.json
+resultados/
+resultados_lx225/
+*.csv
+*.png
+!hardware/**/*.png
+
+# Configuracoes locais do editor
+.vscode/
+.idea/
+.pio/
+
+# Arquivos temporarios
+*.tmp
+*.bak
+
+# ROS build outputs and experiment recordings
+build/
+install/
+log/
+*.db3
+*.mcap
+*.egg-info/
