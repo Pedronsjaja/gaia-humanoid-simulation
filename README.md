@@ -1,4 +1,38 @@
-# Gaia — simulação do humanoide e autonomia
+<div align="center">
+
+<h1>🤖 Gaia &#183; Simula&#231;&#227;o</h1>
+<p><strong>Do primeiro comando de junta ao estudo de autonomia no futebol.</strong></p>
+<p><kbd>ROS 2 Jazzy &#183; Gazebo Harmonic &#183; ROBOTIS OP3</kbd></p>
+
+<p><a href="https://github.com/Pedronsjaja/gaia-humanoid-simulation/stargazers"><img alt="Estrelas no GitHub" src="https://img.shields.io/github/stars/Pedronsjaja/gaia-humanoid-simulation?style=flat-square&amp;color=147d68"/></a> <a href="https://github.com/Pedronsjaja/gaia-humanoid-simulation/commits/main"><img alt="Último commit" src="https://img.shields.io/github/last-commit/Pedronsjaja/gaia-humanoid-simulation?style=flat-square&amp;color=235789"/></a></p>
+<p><a href="#inicio-rapido">Comece aqui</a> · <a href="#guia-do-projeto">Documentação</a> · <a href="https://github.com/Pedronsjaja/gaia-humanoid-simulation/tree/main">Arquivos</a></p>
+
+</div>
+
+<a id="inicio-rapido"></a>
+## 🚀 Comece aqui
+
+**[Abrir o laboratório](docs/simulacao/instalacao-e-laboratorio.md)**
+
+| Modelo de referência | Aprendizado | Próximos passos |
+| --- | --- | --- |
+| ROBOTIS OP3 em revisão fixa. | Controladores, câmera e IMU no simulador. | Plano de autonomia com limites documentados. |
+
+### Caminho do projeto
+
+```mermaid
+flowchart LR
+  N0["Preparar Ubuntu"]
+  N1["Instalar laboratório"]
+  N0 --> N1
+  N2["Explorar OP3"]
+  N1 --> N2
+  N3["Estudar autonomia"]
+  N2 --> N3
+```
+
+<a id="guia-do-projeto"></a>
+## 📖 Documentação
 
 Laboratório **ROS 2 Jazzy + Gazebo Harmonic**, baseado no modelo oficial **ROBOTIS OP3**, para a equipe Gaia estudar juntas, sensores e os programas necessários à autonomia no futebol.
 
@@ -51,3 +85,4 @@ Este conteúdo foi separado do projeto original; consulte a [procedência da mig
 | Instalar Ubuntu 24.04 e ROS 2 Jazzy | [Ambiente Linux / ROS 2](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24) |
 
 Cada repositório tem seus próprios arquivos, Issues e histórico. Abra dúvidas na área correspondente; inclua links quando uma mudança depender de outra área.
+
