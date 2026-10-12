@@ -1,5 +1,7 @@
 """Run only against the Gaia OP3 simulator, never against physical hardware."""
 import time
+import json
+from pathlib import Path
 import rclpy
 from rclpy.node import Node
 from rclpy.qos import qos_profile_sensor_data
@@ -13,6 +15,12 @@ def main():
     rclpy.init()
     node = Node('gaia_sim_smoke')
     received = {}
+    arrivals = {}
+    counts = {}
+    def record(name, msg):
+        received[name] = msg
+        arrivals[name] = time.monotonic()
+        counts[name] = counts.get(name, 0) + 1
     subscriptions = []
     for name, kind, topic in [
         ('joints', JointState, '/joint_states'),
@@ -22,7 +30,7 @@ def main():
         ('clock', Clock, '/clock'),
     ]:
         subscriptions.append(node.create_subscription(
-            kind, topic, lambda msg, key=name: received.__setitem__(key, msg),
+            kind, topic, lambda msg, key=name: record(key, msg),
             qos_profile_sensor_data))
     publisher = node.create_publisher(
         JointTrajectory, '/joint_trajectory_controller/joint_trajectory', 10)
@@ -45,6 +53,18 @@ def main():
 
     try:
         wait_until(lambda: len(received) == 5, 150, 'clock, joints, camera, CameraInfo and IMU')
+        baseline = counts.copy()
+        start = time.monotonic()
+        while time.monotonic() - start < 10:
+            rclpy.spin_once(node, timeout_sec=0.1)
+        now = time.monotonic()
+        metrics = {key: {'messages': counts[key] - baseline[key],
+                         'observed_hz': (counts[key] - baseline[key]) / (now - start),
+                         'age_wall_seconds': now - arrivals[key]}
+                   for key in baseline}
+        Path('smoke-metrics.json').write_text(json.dumps(metrics, indent=2), encoding='utf-8')
+        if any(item['messages'] < 2 or item['age_wall_seconds'] > 5 for item in metrics.values()):
+            raise RuntimeError('Topics stopped or stale: ' + json.dumps(metrics))
         assert len(received['joints'].name) == 20
         assert received['image'].width == 320 and len(received['image'].data) > 0
         assert received['image'].header.frame_id == 'gaia_camera_optical_frame'
@@ -64,6 +84,7 @@ def main():
             raise RuntimeError('trajectory controller did not become active')
         wait_until(lambda: publisher.get_subscription_count() > 0, 30, 'active trajectory subscriber')
         for target in (0.15, 0.0):
+            before_command = counts['joints']
             msg = JointTrajectory()
             msg.joint_names = ['head_pan']
             point = JointTrajectoryPoint()
@@ -71,7 +92,9 @@ def main():
             point.time_from_start.sec = 2
             msg.points = [point]
             publisher.publish(msg)
-            wait_until(lambda: abs(joint_position() - target) < 0.025,
+            wait_until(lambda: counts['joints'] > before_command
+                       and time.monotonic() - arrivals['joints'] < 5
+                       and abs(joint_position() - target) < 0.025,
                        40, f'head_pan reaches {target} rad')
         print('Simulation smoke test passed; not a balance or visual-quality test.', flush=True)
     finally:

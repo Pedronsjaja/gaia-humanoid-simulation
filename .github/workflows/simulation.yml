@@ -46,3 +46,13 @@ jobs:
           sim_pid=$!
           trap 'kill -INT "$sim_pid" 2>/dev/null || true; tail -n 100 /tmp/gaia-sim.log' EXIT
           python3 "$GITHUB_WORKSPACE/ros2/gaia_op3_sim/test/smoke_sim.py"
+      - name: Preserve simulation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: simulation-evidence
+          path: |
+            /tmp/gaia-sim.log
+            smoke-metrics.json
+            /tmp/gaia_ws/log
+          if-no-files-found: warn

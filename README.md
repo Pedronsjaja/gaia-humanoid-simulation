@@ -86,3 +86,7 @@ Este conteúdo foi separado do projeto original; consulte a [procedência da mig
 
 Cada repositório tem seus próprios arquivos, Issues e histórico. Abra dúvidas na área correspondente; inclua links quando uma mudança depender de outra área.
 
+
+## Engenharia e validacao
+
+[Estado tecnico, validacao e proximos passos](docs/engineering-status.md).
