@@ -12,6 +12,14 @@
 <a id="inicio-rapido"></a>
 ## 🚀 Comece aqui
 
+### Quer entender como os programas conversam com os servos?
+
+**[Abra o guia ilustrado: da câmera aos servos](docs/programacao/da-camera-aos-servos.md).**
+
+Comece pelo resumo de um minuto e acompanhe os fluxogramas. O guia explica o papel do Python, dos nós ROS 2, da BusLinker e do retorno de informações dos servos, sem exigir que você conheça todos esses termos antes.
+
+### Quer experimentar o OP3 no Gazebo?
+
 **[Abrir o laboratório](docs/simulacao/instalacao-e-laboratorio.md)**
 
 | Modelo de referência | Aprendizado | Próximos passos |

@@ -4,7 +4,41 @@
 
 Este guia explica como dados de câmera, programas Python, interfaces ROS 2 e comandos de servos se relacionam. O exemplo de movimento é um objetivo de junta escolhido pelo estudante no laboratório. **A tomada de decisão/autonomia fica pendente**, sem algoritmo, máquina de estados ou estratégia de futebol definida aqui.
 
-O público é quem está aprendendo Python e ROS 2 Jazzy. Leia primeiro as seções 1–4, desenhe o caminho de uma mensagem e depois estude trajetórias, feedback e conversão de juntas. Não há programa de movimentação física para copiar deste guia.
+O público é quem está aprendendo Python e ROS 2 Jazzy. Comece pelo resumo abaixo; os detalhes ficam nas seções seguintes para consulta. Não há programa de movimentação física para copiar deste guia.
+
+## Entenda em um minuto
+
+Pense em programas com funções diferentes trabalhando juntos. Um recebe imagens da câmera; outros poderão fazer os cálculos necessários para o movimento. **O ROS 2 permite que esses programas troquem informações. O driver Python faz a comunicação de baixo nível com os servos.**
+
+Em uma possível integração por tópicos, o caminho seria:
+
+1. Um programa calcula os movimentos desejados e **publica uma mensagem em um tópico**, que é um canal de comunicação do ROS 2.
+2. O nó responsável pelos atuadores **assina esse tópico** e recebe a mensagem. Nó é o programa participante da comunicação; o servo físico não assina tópicos ROS.
+3. Essa integração confere os comandos e usa o driver Python para enviá-los pela **BusLinker aos servos identificados por ID**. Um nó pode cuidar de vários servos no mesmo barramento.
+4. O driver consulta **posição, tensão e temperatura**. A integração poderá publicar essas leituras para que outros programas acompanhem o resultado. Esse retorno é o *feedback*.
+
+Essa é uma explicação da comunicação possível, não uma arquitetura já implementada. Hoje temos o driver de bancada e o laboratório de simulação; a integração ROS/LX-225 e a tomada de decisão autônoma permanecem a definir.
+
+### Duas perguntas diferentes: qual servo e qual ângulo?
+
+| Pergunta | O que o programa precisa fazer |
+| --- | --- |
+| **Qual servo movimenta esta junta?** | Consultar o cadastro que associa o nome da junta, por exemplo “joelho esquerdo”, ao ID do servo físico. O ID real ainda precisa ser confirmado. |
+| **Qual posição enviar para esse servo?** | Converter a posição da junta, expressa em radianos, para a posição do servo em graus, considerando zero, sentido, transmissão e limites da montagem. |
+
+**Radianos e graus são unidades de ângulo. ID é um endereço. Não se convertem radianos em ID:** identifica-se o servo pelo cadastro e calcula-se o ângulo correspondente pela calibração.
+
+## Escolha o que você quer entender
+
+| Quero… | Vá para… |
+| --- | --- |
+| Ver o caminho completo em figuras | [A viagem completa da informação](#2-a-viagem-completa-da-informação) |
+| Saber o que já está disponível | [O que já existe](#1-o-que-já-existe-e-o-que-estamos-propondo) |
+| Entender pacote, nó e processo | [Python e organização](#3-python-pacote-nó-e-processo) |
+| Entender publicar, assinar, serviços e actions | [Como os nós conversam](#4-como-os-nós-conversam) |
+| Conhecer as funções do driver existente | [O que o Python atual faz](#7-o-que-o-python-atual-faz-com-a-buslinker-v25) |
+| Entender cadastro e conversão de ângulos | [Identificar o servo e calcular sua posição](#8-identificar-o-servo-e-converter-o-ângulo-da-junta) |
+| Praticar com a equipe | [Trilha de estudo e exercícios](#10-trilha-de-estudo-e-validação-incremental) |
 
 ## 1. O que já existe e o que estamos propondo
 
@@ -207,7 +241,7 @@ Em `read_servo`, `position_time_s` usa o relógio monotônico do computador apó
 
 A unidade é graus/s [ESTIMADO], com quantização, atraso e ruído. A ponte deve converter para rad/s quando aplicável e indicar validade. **Corrente e torque não são medidos por esse driver**; não preencha `JointState.effort` com tensão, torque anunciado ou zero que pareça uma medição.
 
-## 8. De nome/radianos para ID/graus
+## 8. Identificar o servo e converter o ângulo da junta
 
 O cadastro físico deve ter nome da junta, ID único, zero, sentido, relação de transmissão, limites mecânicos e origem da calibração. Dados ausentes bloqueiam a conversão para hardware; `UNKNOWN` não vira um valor padrão silencioso.
 
