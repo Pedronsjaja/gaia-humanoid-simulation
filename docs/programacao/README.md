@@ -4,6 +4,8 @@
 
 A programação liga os objetivos do robô aos sensores e atuadores. Comece pelo ambiente e por um teste pequeno que possa ser observado.
 
+**Aula: [Da câmera aos servos — Python e ROS 2 no Gaia](da-camera-aos-servos.md).** Entenda dados de sensores, trajetórias, comunicação e feedback com diagramas, contratos, glossário e exercícios. A arquitetura da ponte ROS/LX-225 ainda está a definir. Consulte as [referências e evidências](referencias-camera-servos.md).
+
 | Ordem | Material | O que entregar |
 | --- | --- | --- |
 | 1 | [Ubuntu 24.04 e ROS 2 Jazzy](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24) | Talker/listener no seu computador |

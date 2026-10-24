@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="530" viewBox="0 0 1120 530" role="img" aria-labelledby="title desc">
+<title id="title">Comando e feedback: do programa ao servo</title>
+<desc id="desc">Ilustração conceitual sem execução Gazebo. Um estudante envia objetivo de junta em radianos no ROS, uma integração ainda a definir converte para ID e graus, e o driver comunica por BusLinker com os servos. Leituras retornam ao programa. O simulador é um caminho alternativo.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 Z" fill="#236d90"/></marker></defs>
+<rect width="1120" height="530" rx="20" fill="#f3f7fb"/>
+<g font-family="Arial, sans-serif" fill="#183249">
+<text x="40" y="47" font-size="26" font-weight="bold">Do objetivo ao movimento — e de volta ao programa</text>
+<text x="40" y="78" font-size="16">ILUSTRAÇÃO CONCEITUAL • não é captura Gazebo, ensaio físico ou arquitetura aprovada</text>
+<rect x="40" y="125" width="260" height="170" rx="12" fill="#fff" stroke="#236d90" stroke-width="2"/>
+<text x="60" y="157" font-size="20" font-weight="bold">Computador / ROS 2</text>
+<text x="60" y="192" font-size="17">Estudante escolhe objetivo</text>
+<text x="60" y="220" font-size="17">Nome da junta • rad • s</text>
+<text x="60" y="263" font-size="15">Trajetória e estado observado</text>
+<rect x="345" y="125" width="275" height="170" rx="12" fill="#fff7e5" stroke="#997223" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="365" y="157" font-size="20" font-weight="bold">Integração a definir</text>
+<text x="365" y="192" font-size="17">Nome ↔ ID • rad ↔ graus</text>
+<text x="365" y="220" font-size="17">Zero, sentido, limites e tempo</text>
+<text x="365" y="263" font-size="15">Opções Python / ros2_control</text>
+<rect x="665" y="125" width="195" height="170" rx="12" fill="#fff" stroke="#236d90" stroke-width="2"/>
+<text x="685" y="157" font-size="20" font-weight="bold">Driver Python</text>
+<text x="685" y="192" font-size="17">ID • graus • duração</text>
+<text x="685" y="220" font-size="17">Pacotes e consultas</text>
+<text x="685" y="263" font-size="15">Dono único da serial</text>
+<rect x="905" y="125" width="175" height="170" rx="12" fill="#e2f2ec" stroke="#257353" stroke-width="2"/>
+<text x="925" y="157" font-size="19" font-weight="bold">BusLinker V2.5</text>
+<text x="925" y="191" font-size="17">USB ↔ TTL</text>
+<path d="M990 204 V229" stroke="#236d90" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="925" y="263" font-size="19" font-weight="bold">Servos LX-225</text>
+<g stroke="#236d90" stroke-width="3" fill="none" marker-end="url(#arrow)"><path d="M300 208 H339"/><path d="M620 208 H659"/><path d="M860 208 H899"/><path d="M992 295 V340 H170 V302"/></g>
+<rect x="335" y="319" width="555" height="43" rx="10" fill="#f3f7fb"/>
+<text x="351" y="346" font-size="17">Feedback: posição • tensão • temperatura • validade temporal</text>
+<rect x="40" y="390" width="1040" height="103" rx="12" fill="#e5edf7"/>
+<text x="60" y="421" font-size="19" font-weight="bold">Caminho de estudo existente: ROS 2 → Gazebo / OP3 → estado simulado</text>
+<text x="60" y="449" font-size="16">Base fixa por padrão. Aprender a comandar juntas não comprova marcha ou estabilidade no Gaia.</text>
+<text x="60" y="475" font-size="16">Transferência exige modelo próprio, calibração, limites, medições do transporte e validação gradual.</text>
+</g></svg>

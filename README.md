@@ -49,6 +49,7 @@ Laboratório **ROS 2 Jazzy + Gazebo Harmonic**, baseado no modelo oficial **ROBO
 | Entender ROS, Gazebo, URDF e RViz | [Introdução à simulação](docs/simulacao/README.md) |
 | Instalar, inserir o robô e fazer exercícios | [Tutorial do laboratório](docs/simulacao/instalacao-e-laboratorio.md) |
 | Organização do software | [Programação](docs/programacao/README.md) |
+| Aula de Python/ROS: sensores, BusLinker e feedback | [Da câmera aos servos](docs/programacao/da-camera-aos-servos.md) |
 | Percepção, equilíbrio, decisão e futebol | [Plano de autonomia](docs/simulacao/autonomia.md) |
 | Bibliotecas ROBOTIS e versões fixadas | [Referências](docs/simulacao/referencias.md) |
 | Testes executados e limites | [Registro de validação](docs/simulacao/validacao.md) |
