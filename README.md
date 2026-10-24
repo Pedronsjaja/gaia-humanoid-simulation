@@ -12,6 +12,14 @@
 <a id="inicio-rapido"></a>
 ## 🚀 Comece aqui
 
+### Como integrar os servos ao ROS 2 e avançar até os movimentos do robô?
+
+**[Abra o guia ilustrado: da câmera aos servos](docs/programacao/da-camera-aos-servos.md).**
+
+Comece pelo resumo de um minuto e acompanhe os fluxogramas. O guia explica o papel do Python, dos nós ROS 2, da BusLinker e do retorno de informações dos servos, sem exigir que você conheça todos esses termos antes. Entenda também o que ainda falta para chegar à marcha: modelo próprio, calibração, estimativa de estado, equilíbrio e validação gradual. A ponte ROS/LX-225 está a definir; o guia não entrega um robô que já anda.
+
+### Quer experimentar o OP3 no Gazebo?
+
 **[Abrir o laboratório](docs/simulacao/instalacao-e-laboratorio.md)**
 
 | Modelo de referência | Aprendizado | Próximos passos |
@@ -49,6 +57,7 @@ Laboratório **ROS 2 Jazzy + Gazebo Harmonic**, baseado no modelo oficial **ROBO
 | Entender ROS, Gazebo, URDF e RViz | [Introdução à simulação](docs/simulacao/README.md) |
 | Instalar, inserir o robô e fazer exercícios | [Tutorial do laboratório](docs/simulacao/instalacao-e-laboratorio.md) |
 | Organização do software | [Programação](docs/programacao/README.md) |
+| Aula de Python/ROS: sensores, BusLinker e feedback | [Da câmera aos servos](docs/programacao/da-camera-aos-servos.md) |
 | Percepção, equilíbrio, decisão e futebol | [Plano de autonomia](docs/simulacao/autonomia.md) |
 | Bibliotecas ROBOTIS e versões fixadas | [Referências](docs/simulacao/referencias.md) |
 | Testes executados e limites | [Registro de validação](docs/simulacao/validacao.md) |
