@@ -1,13 +1,14 @@
-<div align="center">
+# GAIA Humanoid Simulation
 
-<h1>🤖 Gaia &#183; Simula&#231;&#227;o</h1>
-<p><strong>Do primeiro comando de junta ao estudo de autonomia no futebol.</strong></p>
-<p><kbd>ROS 2 Jazzy &#183; Gazebo Harmonic &#183; ROBOTIS OP3</kbd></p>
+ROS 2 Jazzy + Gazebo Harmonic laboratory for joint control and virtual sensors using the ROBOTIS OP3 reference model.
 
-<p><a href="https://github.com/Pedronsjaja/gaia-humanoid-simulation/stargazers"><img alt="Estrelas no GitHub" src="https://img.shields.io/github/stars/Pedronsjaja/gaia-humanoid-simulation?style=flat-square&amp;color=147d68"/></a> <a href="https://github.com/Pedronsjaja/gaia-humanoid-simulation/commits/main"><img alt="Último commit" src="https://img.shields.io/github/last-commit/Pedronsjaja/gaia-humanoid-simulation?style=flat-square&amp;color=235789"/></a></p>
-<p><a href="#inicio-rapido">Comece aqui</a> · <a href="#guia-do-projeto">Documentação</a> · <a href="https://github.com/Pedronsjaja/gaia-humanoid-simulation/tree/main">Arquivos</a></p>
+**Status: implemented simulation / experimental robotics.** The package includes a model adapter, launch file, position controllers, camera, IMU and automated simulation checks. The default fixed-base setup supports learning; it does not demonstrate walking, balance or physical LX-225 behavior.
 
-</div>
+**Portfolio role:** virtual-system component of the GAIA engineering work. A calibrated GAIA model and physical/virtual synchronization remain **Planned**. This is not a complete Digital Twin.
+
+[Run the lab](docs/simulacao/instalacao-e-laboratorio.md) · [Validation evidence](docs/simulacao/validacao.md) · [Engineering limits](docs/engineering-status.md)
+
+Team contributions and ROBOTIS model provenance are preserved in [migration notes](docs/migracao.md) and [references](docs/simulacao/referencias.md).
 
 <a id="inicio-rapido"></a>
 ## 🚀 Comece aqui
