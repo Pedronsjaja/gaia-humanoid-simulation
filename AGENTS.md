@@ -1,7 +1,7 @@
 # GAIA simulation engineering instructions
 
 ## Context and ownership
-ROS 2 Jazzy / Gazebo Harmonic live in `ros2/gaia_op3_sim`. OP3 is an external learning model pinned in `simulation/op3.repos`, never measured GAIA geometry/dynamics. Read README, `docs/engineering-status.md` and relevant architecture before changes.
+ROS 2 Jazzy / Gazebo Harmonic live in `ros2/gaia_op3_sim`. OP3 is an external learning model pinned in `simulation/op3.repos`, never measured GAIA geometry/dynamics. Use only the context route needed below; do not reload all architecture documents.
 
 - This repo owns virtual ROS integration, simulation and validation contracts.
 - `Pedronsjaja/gaia-humanoid-structure` owns CAD, mechanical frames/limits and model measurements.
@@ -17,3 +17,6 @@ Use SI and identify SIMULATED, REAL, CALCULATED, ESTIMATED and assumptions. Miss
 Use `.github/workflows/simulation.yml` for Linux colcon, adapter unit tests and Gazebo smoke. `python3 -m unittest discover -s ros2/gaia_op3_sim/test -v` requires xacro/YAML and the pinned OP3 description; see `docs/test-strategy.md` for the non-ROS override.
 Never run `smoke_sim.py` against hardware. Never infer physical safety from simulation. Document test commands, environment, results and limits; retain evidence even on failures. Check Markdown links/anchors and `git diff --check` for docs changes.
 Definition of Done: scoped changes, evidence-backed claims, reproducible validation, explicit unknowns and next gate. Follow the learning path and roadmap instead of creating placeholder packages or unnecessary repositories.
+
+## Selective context
+Context routing: runtime → `docs/architecture/ros2-architecture.md`; cross-repo decisions → system-overview.md in that directory; tests → `docs/test-strategy.md`; onboarding → the selected README lesson. Reuse relevant summaries and validate revision/status before reading only affected symbols. Share the selected map once; delegate disjoint subtasks with one owner. Save new reusable facts in their owning document, not temporary task history.
