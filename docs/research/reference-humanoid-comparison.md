@@ -4,7 +4,7 @@
 
 Reference: [ViniciusAbrao/humanoide](https://github.com/ViniciusAbrao/humanoide), private repository, revision `61484165b6eb78ef5ef1d28dfbb1e2078cdcf04b`, inspected through the maintainer's authorized account on 2026-10-26/27. Public unauthenticated access returned 404; that did not mean the repository was absent. Readers need their own access.
 
-This is a locally prepared architectural comparison, **not authorization to redistribute private material**. No private source, CAD, plots, trajectories or physical parameters were copied into GAIA. Review disclosure permission before publishing this comparison. Inspection is STATIC / NOT TESTED: reference programs and experiments were not executed.
+This is an independently written architectural comparison, **not authorization to redistribute private material**. No private source, CAD, plots, trajectories or physical parameters were copied into GAIA. Publication covers this summary, not the private source materials. Inspection is STATIC / NOT TESTED: reference programs and experiments were not executed.
 
 ## What was inspected
 

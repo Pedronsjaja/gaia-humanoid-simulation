@@ -21,7 +21,7 @@ The old tutorial ended with a validation link pointing to the references page; i
 
 See [the comparison](reference-humanoid-comparison.md). The useful general lesson is to separate generation, replay, acquisition and analysis with explicit time/provenance. The main reference experiment uses Gazebo Transport rather than GAIA's ROS 2 integration. Offline stability estimates, simulated position control and physical balance validation are different claims.
 
-No root license was found for custom reference material; the vendored ROBOTIS component has its own Apache-2.0 license. No private code, CAD, plots, trajectory data or parameters were imported. This locally prepared comparison needs disclosure review before public publication.
+No root license was found for custom reference material; the vendored ROBOTIS component has its own Apache-2.0 license. No private code, CAD, plots, trajectory data or parameters were imported. The maintainer authorized publishing the documentation changes on 2026-10-27; this does not license redistribution of private reference assets.
 
 ## Architecture decisions
 

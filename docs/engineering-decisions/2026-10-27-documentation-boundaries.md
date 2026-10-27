@@ -8,7 +8,7 @@ Constraints: preserve working Jazzy/Harmonic launch/model/tests, external licens
 
 Alternatives: merge repositories; copy the external gait stack; replace OP3 prematurely; rename every documentation path; or preserve boundaries and add an evidence-backed navigation layer. Criteria: correctness, traceability, beginner comprehension, low regression risk and reversible changes.
 
-Decision: retain three source-of-truth repos, OP3 teaching model and original paths. Add concise English README/architecture/status/learning/roadmap/validation documents; translate the first lab in place with legacy anchors. Keep historical Portuguese lessons available as transitional team resources. Document a future hardware contract without creating a fake package. Use independent prose/diagrams and licensed public references; review private comparison disclosure before publication.
+Decision: retain three source-of-truth repos, OP3 teaching model and original paths. Add concise English README/architecture/status/learning/roadmap/validation documents; translate the first lab in place with legacy anchors. Keep historical Portuguese lessons available as transitional team resources. Document a future hardware contract without creating a fake package. Use independent prose/diagrams and licensed public references; publish only the independently written comparison; do not redistribute private assets.
 
 Consequences: beginner navigation improves without runtime changes. Some historical material remains Portuguese and explicitly linked. A future hardware design must resolve transport ownership, lifecycle, timing, calibration and fault policy before implementation. A complete physical model cannot be inferred from a diagram or asset catalog.
 
