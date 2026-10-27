@@ -1,46 +1,32 @@
-# Simulação do humanoide Gaia — referência ROBOTIS OP3
+# Simulation learning index
 
-[Início do Gaia](../../README.md) · [Instalar Ubuntu e ROS 2](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24)
+[Home](../../README.md) · [Learning path](../learning-path.md)
 
-A equipe usará o **ROBOTIS OP3 como referência de estudo** para organização mecânica, representação das juntas e software de humanoides. O primeiro laboratório usa o modelo OP3 oficial. O modelo definitivo do Gaia ainda precisa incorporar suas medidas, massas, sensores e servos LX-225.
+The laboratory uses the official ROBOTIS OP3 model as a learning platform. GAIA’s own mechanics and LX-225 characterization belong to separate repositories. OP3 is not a measured GAIA model.
 
-## O que cada programa faz?
-
-| Camada | Função |
+| Start here | Purpose |
 | --- | --- |
-| Ubuntu 24.04 | Sistema que executa ferramentas e drivers |
-| ROS 2 Jazzy | Comunicação e organização dos programas robóticos |
-| Gazebo Harmonic | Física, cenário e sensores virtuais |
-| URDF/Xacro | Descrição de corpos, juntas, geometria e inércia |
-| ros2_control | Interface entre controladores e juntas |
-| RViz | Visualiza dados ROS; não calcula física |
+| [Installation and first lab](instalacao-e-laboratorio.md) | Prepare Jazzy/Harmonic, observe sensors and command a simulated head joint |
+| [System overview](../architecture/system-overview.md) | Understand every layer and its implementation status |
+| [ROS 2 / simulation runtime](../architecture/ros2-architecture.md) | Locate launch, model adapter, controllers, world and bridge |
+| [OP3 versus GAIA](../research/op3-reference-model.md) | Understand provenance and model replacement gates |
+| [Simulation-to-real roadmap](../roadmap/simulation-to-real.md) | Progress through mechanical data, calibration and physical integration |
+| [Status matrix](../engineering-status.md) | Separate implementation, measurement and validation |
+| [Test strategy](../test-strategy.md) | Reproduce adapter tests and isolated Gazebo checks |
+| [Historical validation](validacao.md) | Retained results, dated environments and pending manual checks |
+| [Historical source audit](referencias.md) | Original model revisions and integration rationale |
+| [Autonomy team lesson (pt-BR)](autonomia.md) | Earlier conceptual discussion; proposed milestones are not completed results |
 
-A combinação Jazzy/Harmonic segue a [documentação Gazebo](https://gazebosim.org/docs/harmonic/ros_installation/). O manual OP3 possui abas **2025 ~** e **~ 2023**: a primeira apresenta ROS 2; a segunda contém comandos ROS 1 como `roslaunch` e `catkin`. Siga a versão ROS 2. [Manual de simulação OP3](https://emanual.robotis.com/docs/en/platform/op3/simulation/#simulation).
+Ubuntu hosts ROS tools; Gazebo computes virtual physics/sensors; URDF/Xacro describes bodies/joints; ros2_control connects controllers to joint interfaces; RViz visualizes ROS state. ROS 1/catkin or Gazebo Classic recipes are not the Jazzy/Harmonic lab.
 
-## Sequência para a equipe
+The fixed support is a teaching device, not proof of balance. The lab does not launch `op3_manager`, open a serial port or use BusLinker. A free-base fall may be expected without a balance controller. Keep physical controllers out of the exercise domain.
 
-| Etapa | Guia | Entrega |
-| --- | --- | --- |
-| 0 | [Ambiente Linux/ROS 2](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24) | Talker/listener funcionando |
-| 1 | [Instalar e executar o laboratório](instalacao-e-laboratorio.md) | OP3 no Gazebo, juntas, câmera e IMU |
-| 2 | [Do CAD ao modelo Gaia](https://github.com/Pedronsjaja/gaia-humanoid-structure/blob/main/docs/modelo-gaia.md) | Uma junta Gaia descrita e testada |
-| 3 | [ROS 2 e autonomia](autonomia.md) | Plano de trabalho com critérios de avanço |
-| Consulta | [Bibliotecas, revisões e limitações](referencias.md) | Saber o que reutilizar e o que adaptar |
+Existing Portuguese historical/team lessons and their paths remain available during the English R&D migration. New canonical architecture and onboarding are linked above.
 
-## O que está entregue agora
-
-O pacote [gaia_op3_sim](../../ros2/gaia_op3_sim) adiciona um laboratório próprio ao modelo `op3_description` oficial, baixado por [manifesto com revisão fixa](../../simulation/op3.repos). Ele inclui suporte virtual, controle de posição das juntas, câmera/IMU ideais e ponte ROS/Gazebo. O cenário tem chão e uma caixa vermelha para exercícios de visão.
-
-O padrão é **tronco preso ao mundo, a 0,6 m**, para não depender de equilíbrio ao aprender ROS. Isso não demonstra que o robô fica em pé sozinho. A opção de base livre serve para estudos posteriores e pode resultar em queda.
-
-O laboratório **não carrega op3_manager**, não usa a BusLinker e não abre portas seriais. Não execute simultaneamente controladores do robô real no domínio usado para os exercícios.
-
-## Por que um laboratório Gaia além do lançador oficial?
-
-Na revisão inspecionada de `ROBOTIS-OP3-Common/jazzy-devel`, o Xacro principal tem a inclusão de configuração de simulação comentada e não gera `ros2_control`. O lançador oficial de simulação solicita controladores, mas o modelo dessa revisão não contém a integração correspondente. O adaptador daqui completa essa configuração em memória e mantém os arquivos ROBOTIS intactos. [Evidências e revisões](referencias.md).
-
-A configuração do laboratório é didática. Limites do modelo OP3 e atuação ideal por posição não representam fielmente os motores LX-225. Marcha, equilíbrio e autonomia não estão implementados neste pacote.
-
-## Validação
-
-O laboratório passou em compilação e ensaio Linux sem janela, incluindo sensores e movimento da cabeça com retorno a zero. Veja o [registro e os limites da validação](validacao.md).
+<!-- Legacy section fragments retained for inbound links. -->
+<a id="simulação-do-humanoide-gaia--referência-robotis-op3"></a>
+<a id="o-que-cada-programa-faz"></a>
+<a id="sequência-para-a-equipe"></a>
+<a id="o-que-está-entregue-agora"></a>
+<a id="por-que-um-laboratório-gaia-além-do-lançador-oficial"></a>
+<a id="validação"></a>

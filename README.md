@@ -1,102 +1,75 @@
 # GAIA Humanoid Simulation
 
-ROS 2 Jazzy + Gazebo Harmonic laboratory for joint control and virtual sensors using the ROBOTIS OP3 reference model.
+GAIA is a humanoid engineering project connecting custom mechanical design, LX-225 actuator characterization and robotics software. This repository is its **virtual engineering laboratory**, using **ROS 2 Jazzy, Gazebo Harmonic and the ROBOTIS OP3 reference model**.
 
-**Status: implemented simulation / experimental robotics.** The package includes a model adapter, launch file, position controllers, camera, IMU and automated simulation checks. The default fixed-base setup supports learning; it does not demonstrate walking, balance or physical LX-225 behavior.
+**OP3 is not the GAIA robot.** It lets us learn controllers, sensors and ROS interfaces while GAIA mechanical data is prepared. This is not a complete Digital Twin or a walking GAIA implementation.
 
-**Portfolio role:** virtual-system component of the GAIA engineering work. A calibrated GAIA model and physical/virtual synchronization remain **Planned**. This is not a complete Digital Twin.
+[Start learning](docs/learning-path.md) · [Run the lab](docs/simulacao/instalacao-e-laboratorio.md) · [System architecture](docs/architecture/system-overview.md) · [Status and evidence](docs/engineering-status.md)
 
-[Run the lab](docs/simulacao/instalacao-e-laboratorio.md) · [Validation evidence](docs/simulacao/validacao.md) · [Engineering limits](docs/engineering-status.md)
+## What exists today?
 
-Team contributions and ROBOTIS model provenance are preserved in [migration notes](docs/migracao.md) and [references](docs/simulacao/referencias.md).
+| Area | Current implementation | Boundary |
+| --- | --- | --- |
+| Simulation | Pinned OP3 model, fixed-base teaching support, 20 reference joints, position trajectory controller | OP3 geometry/dynamics; not measured GAIA properties |
+| Virtual sensors | Camera, CameraInfo, IMU, simulated clock and joint states | Ideal teaching sensors; physical sensors are UNKNOWN |
+| Physical actuation | Separate Python LX-225 / BusLinker bench driver | No implemented ROS 2 hardware interface in this lab |
+| Mechanical design | Separate CAD/support inventory and model-data requirements | Complete GAIA joint arrangement and validated dynamic model are pending |
+| Autonomy / Digital Twin | Research and integration roadmap | Balance, walking and physical/virtual synchronization are PLANNED |
+
+The [status matrix](docs/engineering-status.md) separates implementation from validation. Historical Linux/Gazebo evidence is retained; it does not validate real actuators or the current Windows host.
+
+## Architecture and repository ecosystem
+
+| Source of truth | Read it for |
+| --- | --- |
+| [gaia-humanoid-structure](https://github.com/Pedronsjaja/gaia-humanoid-structure) | [CAD inventory](https://github.com/Pedronsjaja/gaia-humanoid-structure/blob/main/hardware/README.md), mechanics, frames and [GAIA model requirements](https://github.com/Pedronsjaja/gaia-humanoid-structure/blob/main/docs/modelo-gaia.md) |
+| [gaia-lx225-buslinker](https://github.com/Pedronsjaja/gaia-lx225-buslinker) | [Python driver](https://github.com/Pedronsjaja/gaia-lx225-buslinker/blob/main/servo_testbench.py), serial protocol, feedback, calibration and bench evidence |
+| This repository | ROS 2 interfaces, OP3 simulation, virtual tests and integration contracts |
+| [gaia-ros2-ubuntu24](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24) | Ubuntu 24.04 / ROS 2 environment preparation |
+
+Read the [layer diagram](docs/architecture/system-overview.md), [ROS 2 runtime](docs/architecture/ros2-architecture.md) and [future hardware contract](docs/architecture/hardware-integration.md). No new perception/autonomy repository is needed until a concrete implementation and ownership boundary justify it.
 
 <a id="inicio-rapido"></a>
-## 🚀 Comece aqui
+## Quick start
 
-### Como integrar os servos ao ROS 2 e avançar até os movimentos do robô?
+Use Ubuntu 24.04 with ROS 2 Jazzy. Follow the [installation and first lab](docs/simulacao/instalacao-e-laboratorio.md) to install dependencies, import the pinned model and build. After that, in an isolated simulation terminal:
 
-**[Abra o guia ilustrado: da câmera aos servos](docs/programacao/da-camera-aos-servos.md).**
-
-Comece pelo resumo de um minuto e acompanhe os fluxogramas. O guia explica o papel do Python, dos nós ROS 2, da BusLinker e do retorno de informações dos servos, sem exigir que você conheça todos esses termos antes. Entenda também o que ainda falta para chegar à marcha: modelo próprio, calibração, estimativa de estado, equilíbrio e validação gradual. A ponte ROS/LX-225 está a definir; o guia não entrega um robô que já anda.
-
-### Quer experimentar o OP3 no Gazebo?
-
-**[Abrir o laboratório](docs/simulacao/instalacao-e-laboratorio.md)**
-
-| Modelo de referência | Aprendizado | Próximos passos |
-| --- | --- | --- |
-| ROBOTIS OP3 em revisão fixa. | Controladores, câmera e IMU no simulador. | Plano de autonomia com limites documentados. |
-
-### Caminho do projeto
-
-```mermaid
-flowchart LR
-  N0["Preparar Ubuntu"]
-  N1["Instalar laboratório"]
-  N0 --> N1
-  N2["Explorar OP3"]
-  N1 --> N2
-  N3["Estudar autonomia"]
-  N2 --> N3
+```bash
+source /opt/ros/jazzy/setup.bash
+source ~/gaia_ws/install/setup.bash
+export ROS_DOMAIN_ID=42
+export ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+ros2 launch gaia_op3_sim lab.launch.py
 ```
+
+Expected: OP3 held by the virtual support, active controllers and sensor messages. Check these in the lab before commanding the head. A visible window alone is not a passing test. `gui:=false` still needs rendering support; `fixed_base:=false` removes the support and does not add balance control.
+
+## From reference simulation to the real robot
+
+The physical actuator is **Hiwonder LX-225 via BusLinker**. A simulated position joint is not an LX-225 motor model. The future chain is ROS controller → calibrated hardware interface → bench driver → BusLinker → physical joint → feedback. Read the [interface requirements](docs/architecture/hardware-integration.md) before implementation.
+
+The [simulation-to-real roadmap](docs/roadmap/simulation-to-real.md) starts with OP3 learning, then GAIA CAD/kinematics/URDF, one measured actuator and staged integration. [Digital Twin experiments](docs/roadmap/digital-twin.md) require physical measurements, synchronization, parameter identification and independent model validation.
 
 <a id="guia-do-projeto"></a>
-## 📖 Documentação
+## Study, research and contribution
 
-Laboratório **ROS 2 Jazzy + Gazebo Harmonic**, baseado no modelo oficial **ROBOTIS OP3**, para a equipe Gaia estudar juntas, sensores e os programas necessários à autonomia no futebol.
+- Beginners: [learning path, levels 0–14](docs/learning-path.md).
+- Model provenance: [OP3 versus GAIA](docs/research/op3-reference-model.md), [external humanoid comparison](docs/research/reference-humanoid-comparison.md), [bibliography](docs/research/bibliography.md).
+- Validation: [test strategy](docs/test-strategy.md), [historical results](docs/simulacao/validacao.md), [documentation audit](docs/research/documentation-audit.md).
+- Existing team lessons in Portuguese: [camera-to-servo guide](docs/programacao/da-camera-aos-servos.md), [GitHub introduction](docs/primeiros-passos-github.md), [autonomy discussion](docs/simulacao/autonomia.md). These remain linked during the English migration.
 
-## Roteiro da primeira aula
+Before contributing, read [AGENTS.md](AGENTS.md). Open an issue with the affected subsystem, revision, reproduction, evidence and remaining uncertainty. Keep code/model changes separate from documentation changes. Test the relevant layer, retain raw data and source licenses, and never substitute OP3 or external-reference parameters for GAIA measurements. Technical R&D documentation is primarily English; Brazilian team/management material remains Portuguese.
 
-1. Prepare o Ubuntu pelo [guia de ambiente](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24): dual boot ou máquina virtual.
-2. Leia [como navegar no GitHub](docs/primeiros-passos-github.md).
-3. Siga [instalar e executar o laboratório](docs/simulacao/instalacao-e-laboratorio.md).
-4. Carregue o OP3, confira os controladores, comande a cabeça e observe câmera/IMU.
-5. Estude os [objetivos e etapas de autonomia](docs/simulacao/autonomia.md).
+Earlier team contributions and URLs remain available in [migration history](docs/migracao.md). The [MIT license](ros2/gaia_op3_sim/LICENSE) covers the local ROS package, not every external asset. See [third-party credits](THIRD_PARTY_CREDITS.md).
 
-| Assunto | Guia |
-| --- | --- |
-| Entender ROS, Gazebo, URDF e RViz | [Introdução à simulação](docs/simulacao/README.md) |
-| Instalar, inserir o robô e fazer exercícios | [Tutorial do laboratório](docs/simulacao/instalacao-e-laboratorio.md) |
-| Organização do software | [Programação](docs/programacao/README.md) |
-| Aula de Python/ROS: sensores, BusLinker e feedback | [Da câmera aos servos](docs/programacao/da-camera-aos-servos.md) |
-| Percepção, equilíbrio, decisão e futebol | [Plano de autonomia](docs/simulacao/autonomia.md) |
-| Bibliotecas ROBOTIS e versões fixadas | [Referências](docs/simulacao/referencias.md) |
-| Testes executados e limites | [Registro de validação](docs/simulacao/validacao.md) |
-| Dados mecânicos para criar o modelo Gaia | [Estrutura → modelo Gaia](https://github.com/Pedronsjaja/gaia-humanoid-structure/blob/main/docs/modelo-gaia.md) |
-| Regras que limitam sensores e projeto | [CBR Humanoid](https://github.com/Pedronsjaja/gaia-humanoid-structure/blob/main/docs/competicao/README.md) |
-
-## O que existe
-
-- Pacote [gaia_op3_sim](ros2/gaia_op3_sim/): cenário, controladores e sensores virtuais.
-- [Manifesto OP3](simulation/op3.repos): baixa o modelo ROBOTIS em revisão fixa.
-- [Automação Linux](.github/workflows/simulation.yml): compilação, testes do modelo e ensaio de sensores/movimento.
-
-O laboratório prende a base do OP3 para aprender comandos sem depender de equilíbrio. Marcha, futebol autônomo e interface ROS/LX-225 ainda são etapas de desenvolvimento. O modelo OP3 não representa automaticamente as massas, limites e atuadores reais do Gaia.
-
-## Organização
-
-```text
-docs/simulacao/         Aulas, autonomia e referências
-docs/programacao/      Trilha de software
-ros2/gaia_op3_sim/      Pacote ROS 2 do laboratório
-simulation/op3.repos   Modelo oficial e revisão
-.github/workflows/     Verificações automáticas
-```
-
-Este conteúdo foi separado do projeto original; consulte a [procedência da migração](docs/migracao.md).
-
-## Repositórios da equipe Gaia
-
-| Preciso de… | Repositório |
-| --- | --- |
-| Servo LX-225, BusLinker, drivers e testes de bancada | [LX-225 / BusLinker](https://github.com/Pedronsjaja/gaia-lx225-buslinker) |
-| Gazebo, OP3, ROS 2 e autonomia | [Simulação](https://github.com/Pedronsjaja/gaia-humanoid-simulation) |
-| CAD, suportes, montagem e requisitos físicos da CBR | [Estrutura](https://github.com/Pedronsjaja/gaia-humanoid-structure) |
-| Instalar Ubuntu 24.04 e ROS 2 Jazzy | [Ambiente Linux / ROS 2](https://github.com/Pedronsjaja/gaia-ros2-ubuntu24) |
-
-Cada repositório tem seus próprios arquivos, Issues e histórico. Abra dúvidas na área correspondente; inclua links quando uma mudança depender de outra área.
-
-
-## Engenharia e validacao
-
-[Estado tecnico, validacao e proximos passos](docs/engineering-status.md).
+<!-- Legacy section fragments retained for inbound links. -->
+<a id="-comece-aqui"></a>
+<a id="como-integrar-os-servos-ao-ros-2-e-avançar-até-os-movimentos-do-robô"></a>
+<a id="quer-experimentar-o-op3-no-gazebo"></a>
+<a id="caminho-do-projeto"></a>
+<a id="-documentação"></a>
+<a id="roteiro-da-primeira-aula"></a>
+<a id="o-que-existe"></a>
+<a id="organização"></a>
+<a id="repositórios-da-equipe-gaia"></a>
+<a id="engenharia-e-validacao"></a>

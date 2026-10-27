@@ -1,3 +1,5 @@
+> Historical / supplementary team material in Portuguese. Current English entrypoints: [architecture](../architecture/system-overview.md), [status](../engineering-status.md) and [learning path](../learning-path.md). Dated claims below retain their original scope; this note is not a new test result.
+
 # ROS 2 e o caminho do Gaia até a autonomia
 
 [Índice](README.md)
